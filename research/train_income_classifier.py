@@ -17,7 +17,7 @@ import joblib # for saving algorithm and preprocessing objects
 
 # load dataset
 df = pd.read_csv('https://raw.githubusercontent.com/pplonski/datasets-for-start/master/adult/data.csv', skipinitialspace=True)
-x_cols = [c for c in df.columns if c != 'income']
+x_cols = [c for c in df.columns if c!='income']
 # set input matrix and target column
 X = df[x_cols]
 y = df['income']
@@ -44,9 +44,15 @@ for column in ['workclass', 'education', 'marital-status', 'occupation', 'relati
 
 
 # train the Random Forest algorithm
-rf = RandomForestClassifier(n_estimators = 100)
+rf = RandomForestClassifier(n_estimators=100)
 rf = rf.fit(X_train, y_train)
 
 # train the Extra Trees algorithm
-et = ExtraTreesClassifier(n_estimators = 100)
+et = ExtraTreesClassifier(n_estimators=100)
 et = et.fit(X_train, y_train)
+
+
+joblib.dump(train_mode, "./train_mode.joblib", compress=True)
+joblib.dump(encoders, "./encoders.joblib", compress=True)
+joblib.dump(rf, "./random_forest.joblib", compress=True)
+joblib.dump(et, "./extra_trees.joblib", compress=True)
